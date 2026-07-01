@@ -4,173 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Data Storage</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-right: 10px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .data-container {
-            margin-top: 30px;
-            border: 1px solid #ddd;
-            padding: 20px;
-            border-radius: 4px;
-        }
-        .user-card {
-            border-bottom: 1px solid #eee;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-        .user-card:last-child {
-            border-bottom: none;
-        }
-        .clear-btn {
-            background-color: #f44336;
-        }
-        .clear-btn:hover {
-            background-color: #da190b;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<div class="container">
     <h2>User Information Form</h2>
-    
+
     <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" id="name" placeholder="Enter name">
-    </div>
-    
-    <div class="form-group">
-        <label for="age">Age:</label>
-        <input type="number" id="age" placeholder="Enter age">
-    </div>
-    
-    <div class="form-group">
-        <label for="city">City:</label>
-        <input type="text" id="city" placeholder="Enter city">
-    </div>
-    
-    <button onclick="saveUser()">Save User</button>
-    <button onclick="clearAll()" class="clear-btn">Clear All</button>
-    
-    <div class="data-container">
-        <h3>Stored Users:</h3>
-        <div id="userList"></div>
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Enter Name">
     </div>
 
-    <script>
-        // Function to save user data
-        function saveUser() {
-            // Get input values
-            const name = document.getElementById('name').value;
-            const age = document.getElementById('age').value;
-            const city = document.getElementById('city').value;
-            
-            // Validate inputs
-            if (!name || !age || !city) {
-                alert('Please fill in all fields');
-                return;
-            }
-            
-            // Create user object
-            const user = {
-                name: name,
-                age: age,
-                city: city,
-                timestamp: new Date().toLocaleString()
-            };
-            
-            // Get existing users from localStorage
-            let users = JSON.parse(localStorage.getItem('users')) || [];
-            
-            // Add new user
-            users.push(user);
-            
-            // Save back to localStorage
-            localStorage.setItem('users', JSON.stringify(users));
-            
-            // Clear input fields
-            document.getElementById('name').value = '';
-            document.getElementById('age').value = '';
-            document.getElementById('city').value = '';
-            
-            // Display all users
-            displayUsers();
-        }
-        
-        // Function to display users using for loop
-        function displayUsers() {
-            // Get users from localStorage
-            const users = JSON.parse(localStorage.getItem('users')) || [];
-            
-            // Get the container element
-            const userList = document.getElementById('userList');
-            
-            // Clear current display
-            userList.innerHTML = '';
-            
-            // Use for loop to iterate through users (as specified)
-            for (let i = 0; i < users.length; i++) {
-                const user = users[i];
-                
-                // Create user card element
-                const userCard = document.createElement('div');
-                userCard.className = 'user-card';
-                
-                // Add user data to card
-                userCard.innerHTML = `
-                    <strong>Name:</strong> ${user.name}<br>
-                    <strong>Age:</strong> ${user.age}<br>
-                    <strong>City:</strong> ${user.city}<br>
-                    <small>Added: ${user.timestamp}</small>
-                `;
-                
-                // Append to container
-                userList.appendChild(userCard);
-            }
-            
-            // Show message if no users
-            if (users.length === 0) {
-                userList.innerHTML = '<p>No users stored yet.</p>';
-            }
-        }
-        
-        // Function to clear all data
-        function clearAll() {
-            if (confirm('Are you sure you want to clear all data?')) {
-                localStorage.removeItem('users');
-                displayUsers();
-            }
-        }
-        
-        // Display users when page loads
-        displayUsers();
-    </script>
+    <div class="form-group">
+        <label for="age">Age</label>
+        <input type="number" id="age" placeholder="Enter Age">
+    </div>
+
+    <div class="form-group">
+        <label for="city">City</label>
+        <input type="text" id="city" placeholder="Enter City">
+    </div>
+
+    <div class="buttons">
+        <button id="saveBtn">Save User</button>
+        <button id="clearBtn">Clear All</button>
+    </div>
+
+    <div class="data-container">
+        <h3>Stored Users</h3>
+        <div id="userList"></div>
+    </div>
+</div>
+
+<script src="script.js"></script>
 </body>
+</html>
